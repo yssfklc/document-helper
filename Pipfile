@@ -19,6 +19,7 @@ streamlit = "*"
 streamlit-chat = "*"
 tqdm = "*"
 langchain-community = "*"
+langchain-openai = "*"
 
 [dev-packages]
 
