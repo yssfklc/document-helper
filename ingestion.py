@@ -1,5 +1,5 @@
 import os
-from langchain_community.document_loaders import ReadTheDocsLoader
+from langchain_community.document_loaders import ReadTheDocsLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Pinecone
@@ -13,8 +13,11 @@ pc = pinecone.Pinecone(
 
 
 def ingest_docs() -> None:
-    loader = ReadTheDocsLoader(path="langchain-docs/")
+    # loader = ReadTheDocsLoader(path="langchain-docs/")
+    loader = TextLoader(file_path='langchain-docs/biography.txt')
     raw_documents = loader.load()
+    # raw_documents = loader.load()
+    print(raw_documents)
     print(f"loaded {len(raw_documents) } documents")
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=400, chunk_overlap=50, separators=["\n\n", "\n", " ", ""]
