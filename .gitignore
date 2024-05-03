@@ -110,6 +110,14 @@ ENV/
 env.bak/
 venv.bak/
 
+#Streamlit env
+.streamlit/
+.streamlit/config.toml
+.streamlit/secrets.toml 
+config.toml
+secrets.toml 
+# Make sure to gitignore this!
+
 # Spyder project settings
 .spyderproject
 .spyproject

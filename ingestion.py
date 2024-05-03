@@ -2,13 +2,15 @@ import os
 from langchain_community.document_loaders import ReadTheDocsLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Pinecone
-import pinecone
+# from langchain_community.vectorstores import Pinecone
+from pinecone import Pinecone
 from consts import INDEX_NAME
+import streamlit as st
+import os
 
-pc = pinecone.Pinecone(
-    PINECONE_API_KEY=os.getenv("PINECONE_API_KEY"),
-    PINECONE_ENVIRONMENT_REGION=os.getenv("PINECONE_ENVIRONMENT_REGION"),
+pc = Pinecone(
+    api_key=st.pinecone_credentials['PINECONE_API_KEY'],
+    PINECONE_ENVIRONMENT_REGION=st.pinecone_credentials['PINECONE_ENVIRONMENT_REGION'],
 )
 
 
