@@ -2,7 +2,7 @@ from typing import Any, Tuple, List
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
-# from langchain_community.vectorstores import Pinecone
+from langchain_community.vectorstores import Pinecone as Pn
 from pinecone import Pinecone
 from consts import INDEX_NAME
 import streamlit as st
@@ -15,8 +15,8 @@ pc = Pinecone(
 
 
 def run_llm(query: str, chat_history: List[Tuple[str, Any]]) -> Any:
-    embeddings = OpenAIEmbeddings(OPENAI_API_KEY=os.environ['OPENAI_API_KEY'])
-    docsearch = Pinecone.from_existing_index(
+    embeddings = OpenAIEmbeddings(api_key=os.environ['OPENAI_API_KEY'])
+    docsearch = Pn.from_existing_index(
         index_name=INDEX_NAME, embedding=embeddings
     )
     chat = ChatOpenAI(verbose=True, temperature=0)
