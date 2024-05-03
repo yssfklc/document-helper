@@ -9,8 +9,8 @@ import streamlit as st
 import os
 
 pc = Pinecone(
-    api_key=st.pinecone_credentials['PINECONE_API_KEY'],
-    PINECONE_ENVIRONMENT_REGION=st.pinecone_credentials['PINECONE_ENVIRONMENT_REGION'],
+    api_key=os.environ['PINECONE_API_KEY'],
+    PINECONE_ENVIRONMENT_REGION=os.environ['PINECONE_ENVIRONMENT_REGION'],
 )
 
 

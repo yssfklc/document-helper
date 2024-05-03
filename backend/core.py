@@ -9,13 +9,13 @@ import streamlit as st
 import os
 
 pc = Pinecone(
-    api_key=st.pinecone_credentials['PINECONE_API_KEY'],
-    PINECONE_ENVIRONMENT_REGION=st.pinecone_credentials['PINECONE_ENVIRONMENT_REGION'],
+    api_key=os.environ['PINECONE_API_KEY'],
+    PINECONE_ENVIRONMENT_REGION=os.environ['PINECONE_ENVIRONMENT_REGION'],
 )
 
 
 def run_llm(query: str, chat_history: List[Tuple[str, Any]]) -> Any:
-    embeddings = OpenAIEmbeddings(OPENAI_API_KEY=st.openai_credentials['OPENAI_API_KEY'])
+    embeddings = OpenAIEmbeddings(OPENAI_API_KEY=os.environ['OPENAI_API_KEY'])
     docsearch = Pinecone.from_existing_index(
         index_name=INDEX_NAME, embedding=embeddings
     )
