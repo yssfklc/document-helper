@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+python="3.10.11"
 langchain = "*"
 beautifulsoup4 = "*"
 black = "*"
