@@ -1,22 +1,21 @@
-import os
 from typing import Any, Tuple, List
-
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
-from langchain_community.vectorstores import Pinecone
-import pinecone
-
+# from langchain_community.vectorstores import Pinecone
+from pinecone import Pinecone
 from consts import INDEX_NAME
+import streamlit as st
+import os
 
-pc = pinecone.Pinecone(
-    PINECONE_API_KEY=os.getenv("PINECONE_API_KEY"),
-    PINECONE_ENVIRONMENT_REGION=os.getenv("PINECONE_ENVIRONMENT_REGION"),
+pc = Pinecone(
+    api_key=st.pinecone_credentials['PINECONE_API_KEY'],
+    PINECONE_ENVIRONMENT_REGION=st.pinecone_credentials['PINECONE_ENVIRONMENT_REGION'],
 )
 
 
 def run_llm(query: str, chat_history: List[Tuple[str, Any]]) -> Any:
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(OPENAI_API_KEY=st.openai_credentials['OPENAI_API_KEY'])
     docsearch = Pinecone.from_existing_index(
         index_name=INDEX_NAME, embedding=embeddings
     )
