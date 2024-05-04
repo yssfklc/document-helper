@@ -3,10 +3,19 @@ from backend.core import run_llm
 import streamlit as st
 from streamlit_chat import message
 
+with st.sidebar:
+    "Welcome This Chat bot LLM Embeddings"
+    "Ask any question"
+    "[![Open in GitHub](https://github.com/codespaces/badge.svg)](https://github.com/yssfklc/document-helper)"
 
-st.header("Langchain Documentation Reader and Question Answerer")
+st.title("💬 Yusuf AI")
+st.header("Ask Any Question About Yusuf")
+st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
-prompt = st.text_input("Prompt", placeholder="Enter your prompt here")
+prompt = st.text_input("Prompt", placeholder="Ask Your Questions Here")
+
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 if "chat_answer_history" not in st.session_state:
     st.session_state["chat_answer_history"] = []
