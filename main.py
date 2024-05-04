@@ -59,9 +59,19 @@ if prompt:
         st.session_state["user_prompt_history"].append(prompt)
         st.session_state["chat_answer_history"].append(formatted_response)
         st.session_state["chat_history"].append((prompt, generated_response["answer"]))
+
+count=0
+count2=0
 if st.session_state["chat_answer_history"]:
     for user_query, generated_response in zip(
         st.session_state["user_prompt_history"], st.session_state["chat_answer_history"]
     ):
-        message(user_query, is_user=True)
-        message(generated_response)
+        count+=1
+        count2-=1
+        firstkeys=str(count)
+        secondkeys=str(count2)
+        message(user_query, is_user=True, key=firstkeys)
+        message(generated_response, key=secondkeys)
+        # print(message())
+        # print(user_query)
+        # print(generated_response)
