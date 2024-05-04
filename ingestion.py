@@ -2,7 +2,7 @@ import os
 from langchain_community.document_loaders import ReadTheDocsLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
-# from langchain_community.vectorstores import Pinecone
+from langchain_community.vectorstores import Pinecone as Pn
 from pinecone import Pinecone
 from consts import INDEX_NAME
 import streamlit as st
@@ -16,7 +16,7 @@ pc = Pinecone(
 
 def ingest_docs() -> None:
     # loader = ReadTheDocsLoader(path="langchain-docs/")
-    loader = TextLoader(file_path='langchain-docs/biography.txt')
+    loader = TextLoader(file_path='langchain-docs/biography2.txt')
     raw_documents = loader.load()
     # raw_documents = loader.load()
     print(raw_documents)
@@ -27,7 +27,7 @@ def ingest_docs() -> None:
     documents = text_splitter.split_documents(documents=raw_documents)
     print(f"loaded {len(raw_documents)} documents")
     embeddings = OpenAIEmbeddings()
-    Pinecone.from_documents(documents, embeddings, index_name=INDEX_NAME)
+    Pn.from_documents(documents, embeddings, index_name=INDEX_NAME)
     print("Added to Pinecone vectorstore")
 
 
