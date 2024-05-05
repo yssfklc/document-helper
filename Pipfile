@@ -19,6 +19,7 @@ streamlit-chat = "*"
 tqdm = "*"
 langchain-community = "*"
 langchain-openai = "*"
+pymongo = {extras = ["srv"], version = "*"}
 
 [dev-packages]
 

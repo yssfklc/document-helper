@@ -7,6 +7,9 @@ from pinecone import Pinecone
 from consts import INDEX_NAME
 import streamlit as st
 import os
+import secrets
+
+
 
 pc = Pinecone(
     api_key=os.environ['PINECONE_API_KEY'],
@@ -37,4 +40,5 @@ def run_llm(query: str, chat_history: List[Tuple[str, Any]]) -> Any:
 
 
 if __name__ == "__main__":
+
     print(run_llm(query="What is langchain"))

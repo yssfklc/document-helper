@@ -1,9 +1,20 @@
+import os
 from typing import Set
 from backend.core import run_llm
 import streamlit as st
 from streamlit_chat import message
+from pymongo import MongoClient
+import secrets
+# Create session id
+if "session_id" not in st.session_state:
+    st.session_state['session_id'] = secrets.token_hex(16)
+    print(st.session_state['session_id'])
 
-st.backgroundColor = '#000000'
+# Create mongo db connection
+connection_string = os.environ['DB_URL']
+client = MongoClient(connection_string)
+db_collection = client['documenthelper']['storechathistory']
+
 with st.sidebar:
     "Welcome This Chat bot LLM Embeddings"
     "Ask any question"
@@ -72,6 +83,17 @@ if st.session_state["chat_answer_history"]:
         secondkeys=str(count2)
         message(user_query, is_user=True, key=firstkeys)
         message(generated_response, key=secondkeys)
+
         # print(message())
         # print(user_query)
         # print(generated_response)
+dict = {}
+if st.session_state["chat_history"] and "session_id" in st.session_state:
+    dict = {
+        'session_id':st.session_state['session_id'],
+        'user_chat_history':st.session_state["chat_history"][-1]
+    }
+if dict:
+    db_collection.insert_one(dict)
+
+print(st.session_state)
